@@ -356,7 +356,7 @@ ELEMENT: The uppercase letter of your choice.''',
 
             # await asyncio.sleep(2)
     
-    async def save_state(path: str = "state.json"):
+    async def save_state(self, path: str = "state.json"):
         await self.session_control['context'].storage_state(path=path)
         
     def update_prompt_part(self, part_name, new_text):
