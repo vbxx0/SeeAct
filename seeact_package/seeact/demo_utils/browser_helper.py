@@ -21,8 +21,9 @@ from playwright.sync_api import Playwright, expect, sync_playwright
 from pathlib import Path
 import toml
 import os
+from typing import Dict, Any
 
-async def normal_launch_async(playwright: Playwright,headless=False,args=None):
+async def normal_launch_async(playwright: Playwright, headless=False, args=None, playwright_args: Dict[str, Any] = {}):
     browser = await playwright.chromium.launch(
         traces_dir=None,
         headless=False,
