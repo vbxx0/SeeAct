@@ -23,6 +23,7 @@ import random
 from playwright.async_api import async_playwright,Locator
 from os.path import dirname, join as joinpath
 import asyncio
+from typing import Any, Dict
 
 from .data_utils.format_prompt_utils import get_index_from_option_name, generate_new_query_prompt, \
     generate_new_referring_prompt, format_options, generate_option_name
@@ -64,7 +65,8 @@ class SeeActAgent:
                  },
                  rate_limit=-1,
                  model="gpt-4o",
-                 temperature=0.9
+                 temperature=0.9,
+                 playwright_args: Dict[str, Any] = None
                  ):
 
         try:
@@ -121,6 +123,7 @@ class SeeActAgent:
             'context': None,
             'browser': None
         }
+        self.playwright_args = playwright_args or {}
         self.tasks = [self.config["basic"]["default_task"]]
 
         self.main_path = os.path.join(self.config["basic"]["save_file_dir"], datetime.now().strftime("%Y%m%d_%H%M%S"))
@@ -327,7 +330,8 @@ ELEMENT: The uppercase letter of your choice.''',
                                                                     headless=self.config['browser'][
                                                                         'headless'] if headless is None else headless,
                                                                     args=self.config['browser'][
-                                                                        'args'] if args is None else args)
+                                                                        'args'] if args is None else args,
+                                                                   playwright_args=self.playwright_args)
         self.session_control['context'] = await normal_new_context_async(self.session_control['browser'],
                                                                          viewport=self.config['browser'][
                                                                              'viewport'])
