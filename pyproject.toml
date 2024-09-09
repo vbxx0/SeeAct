@@ -10,7 +10,7 @@ authors = [
     {name = "Boyu Gou", email = "gou.43@osu.edu"},
     {name = "Boyuan Zheng", email = "zheng.2372@osu.edu"},
     {name = "Zheng Du", email = "du.913@osu.edu"},
-    {name = "V", email = ""},
+    {name = "V", email = "va.228@example.edu"},
 ]
 license = {file="LICENSE"}
 readme = "https://github.com/OSU-NLP-Group/SeeAct/blob/main/README.md"
