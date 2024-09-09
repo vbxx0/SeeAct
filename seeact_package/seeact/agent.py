@@ -66,7 +66,8 @@ class SeeActAgent:
                  rate_limit=-1,
                  model="gpt-4o",
                  temperature=0.9,
-                 playwright_args: Dict[str, Any] = None
+                 playwright_args: Dict[str, Any] = None,
+                 storage_state: str = None
                  ):
 
         try:
@@ -123,6 +124,7 @@ class SeeActAgent:
             'context': None,
             'browser': None
         }
+        self.storage_state = storage_state
         self.playwright_args = playwright_args or {}
         self.tasks = [self.config["basic"]["default_task"]]
 
@@ -334,7 +336,8 @@ ELEMENT: The uppercase letter of your choice.''',
                                                                    playwright_args=self.playwright_args)
         self.session_control['context'] = await normal_new_context_async(self.session_control['browser'],
                                                                          viewport=self.config['browser'][
-                                                                             'viewport'])
+                                                                             'viewport'],
+                                                                        storage_state=self.storage_state)
 
         self.session_control['context'].on("page", self.page_on_open_handler)
         await self.session_control['context'].new_page()
@@ -352,7 +355,10 @@ ELEMENT: The uppercase letter of your choice.''',
             self.logger.info(e)
 
             # await asyncio.sleep(2)
-
+    
+    async def save_state(path: str = "state.json"):
+        await self.session_control['context'].storage_state(path=path)
+        
     def update_prompt_part(self, part_name, new_text):
         """Update the specified part of the prompt information."""
         if part_name in self.prompts:
