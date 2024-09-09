@@ -328,3 +328,9 @@ If you find this work useful, please consider starring our repos and citing our 
   url={https://openreview.net/forum?id=kiYqbO3wqw}
 }
 ```
+
+## Fork changes
+- added playrights_arguments: Dict[str, Any] to SeeActAgent
+- added storage_state: str to SeeActAgent
+- added save_state(path: str) to SeeActAgent
+- allowed gpt-4o-mini model
